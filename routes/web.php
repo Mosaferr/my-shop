@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\HelloWorldController;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,8 +30,8 @@ Route::get('/hello', function () {
 });
 */
 
+Route::get('users/list', [UserController::class, 'index'])->middleware('auth');
 Route::get('hello', [HelloWorldcontroller::class, 'show']);
 
 Auth::routes();
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
