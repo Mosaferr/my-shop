@@ -22,7 +22,7 @@
                     <td>{{ $user->surname }}</td>
                     <td>{{ $user->phone_number }}</td>
                     <td>
-                        <button class="btn btn-danger btn-sm">
+                        <button class="btn btn-danger btn-sm delete">
                             X
                         </button>
                     </td>
@@ -35,6 +35,8 @@
 @endsection
 @section('javascript')
     $(function() {
-        alert('TEST');
+        $('.delete').click(function (){
+            alert('CLICK');
+        });
     });
 @endsection
