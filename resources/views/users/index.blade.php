@@ -33,3 +33,8 @@
         {{ $users->links() }}
     </div>
 @endsection
+@section('javascript')
+    $(function() {
+        alert('TEST');
+    });
+@endsection
