@@ -39,12 +39,9 @@
             $.ajax({
                 method: "DELETE",
                 url: $(this).data("id")
-                // url: "shop-test/users/" + $(this).data("id")
-                //data: { name: "John", location: "Boston" }
             })
             .done(function( response ) {
                 window.location.reload();
-                // alert( "SUKCES" );
             })
             .fail(function( response ) {
                 alert( "BŁĄD" );

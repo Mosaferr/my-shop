@@ -79,7 +79,6 @@
     </div>
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <script type="module">
-{{--    <script type="text/javascript">--}}
         @yield('javascript')
     </script>
 </body>
