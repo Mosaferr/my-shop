@@ -33,37 +33,6 @@
         {{ $users->links() }}
     </div>
 @endsection
-@section('javascript')
-    $(function() {
-        $('.delete').click(function (){
-
-            Swal.fire({
-                title: 'Na pewno chcesz usunąć rekord?',
-                text: "Już tego nie cofniesz!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Tak, usuń',
-                cancelButtonText: 'Nie usuwaj'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        method: "DELETE",
-                        url: $(this).data("id")
-                    })
-                    .done(function( response ) {
-                        window.location.reload()
-                    })
-                    .fail(function( response ) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oj...!',
-                            text: 'Błąd. Coś poszło nie tak.'
-                        })
-                    });
-                }
-            })
-        });
-    });
+@section('js-files')
+    @vite('resources/js/delete')
 @endsection

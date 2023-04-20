@@ -72,7 +72,6 @@
                 </div>
             </div>
         </nav>
-
         <main class="py-4">
             @yield('content')
         </main>
@@ -81,5 +80,6 @@
     <script type="module">
         @yield('javascript')
     </script>
+    @yield('js-files')
 </body>
 </html>
