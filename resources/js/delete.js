@@ -14,7 +14,10 @@ $(function() {
                 $.ajax({
                     method: "DELETE",
                     // url:"http://shop.test/users/"
-                    url: $(this).data("id")
+                    // url: $(this).data("id")
+                    // url: "{{ url('users') }}/" + $(this).data("id")
+                    // url: deleteUrl + $(_this).data("id")
+                    url:deleteUrl + $(this).data("id")
                 })
                 .done(function ( data ) {
                     window.location.reload();
