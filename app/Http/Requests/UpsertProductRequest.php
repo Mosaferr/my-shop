@@ -17,9 +17,9 @@ class UpsertProductRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
+     * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             'name' => 'required|max:500',
@@ -30,3 +30,18 @@ class UpsertProductRequest extends FormRequest
         ];
     }
 }
+
+/*    public function messages()
+    {
+        return [
+            'name.required' => 'Pole :attribute jest wymagane.'
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'name' => 'nazwa produktu'
+        ];
+    }
+}*/
