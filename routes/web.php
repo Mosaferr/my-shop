@@ -20,9 +20,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [WelcomeController::class, 'index']);
 
-Route::get('/products', [ProductController::class, 'index'])->name('products.index')->middleware('auth');
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+//Route::get('/products', [ProductController::class, 'index'])->name('products.index')->middleware('auth');
 Route::get('/products/create', [ProductController::class, 'create'])->name('products.create')->middleware('auth');
-Route::post('/products', [ProductController::class, 'store'])->name('products.store')->middleware('auth');
+Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+//Route::post('/products', [ProductController::class, 'store'])->name('products.store')->middleware('auth');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show')->middleware('auth');
 Route::get('/products/edit/{product}', [ProductController::class, 'edit'])->name('products.edit')->middleware('auth');
 Route::post('/products/{product}', [ProductController::class, 'update'])->name('products.update')->middleware('auth');
