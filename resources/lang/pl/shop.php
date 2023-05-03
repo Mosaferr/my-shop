@@ -33,6 +33,7 @@ return [
             'amount' => 'Ilość',
             'price' => 'Cena',
             'image' => 'Grafika',
+            'category' => 'Kategoria',
         ]
     ]
 ];
