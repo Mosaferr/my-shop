@@ -20,7 +20,10 @@ class WelcomeController extends Controller
     public function index(Request $request): View|JsonResponse
     {
         $filters = $request->query('filter');
+        $paginate = $request->query('paginate') ?? 9;
+
         $query = Product::query();
+        $query->paginate($paginate);
         if (!is_null($filters)) {
             if (array_key_exists('categories', $filters)) {
                 $query = $query->whereIn('category_id', $filters['categories']);
@@ -38,7 +41,7 @@ class WelcomeController extends Controller
         }
 
         return view("welcome", [
-            'products' => $query->paginate(10),
+            'products' => $query->get(),
             'categories' => ProductCategory::orderBy('name', 'ASC')->get(),
             'defaultImage' => 'https://via.placeholder.com/240x240/5fa9f8/efefef'
         ]);
