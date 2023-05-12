@@ -6,7 +6,8 @@ $(function (){
     });
 
     $('a#filter-button').click(function () {
-        getProducts();
+        // getProducts();
+        getProducts($('a.products-actual-count').first().text());
     });
 
     function getProducts(paginate) {
