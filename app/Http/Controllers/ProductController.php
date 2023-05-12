@@ -6,10 +6,11 @@ use App\Http\Requests\UpsertProductRequest;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use Exception;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\Session;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ProductController extends Controller
 {
@@ -22,6 +23,7 @@ class ProductController extends Controller
         return view("products.index", [
             'products' => Product::paginate(10)
         ]);
+
     }
 
     /**
@@ -37,7 +39,7 @@ class ProductController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * @param UpsertProductRequest $request
+     * @param  UpsertProductRequest  $request
      * @return RedirectResponse
      */
     public function store(UpsertProductRequest $request): RedirectResponse
@@ -47,24 +49,25 @@ class ProductController extends Controller
             $product->image_path = $request->file('image')->store('products');
         }
         $product->save();
-        return redirect('products');
+        return redirect(route('products.index'))->with('status', __('shop.product.status.store.success'));
     }
 
     /**
      * Display the specified resource.
-     * @param Product $product
+     * @param  Product  $product
      * @return View
      */
     public function show(Product $product): View
     {
         return view("products.show", [
-            'product' => $product
+            'product' => $product,
+            'categories' => ProductCategory::all()
         ]);
     }
 
     /**
      * Show the form for editing the specified resource.
-     * @param Product $product
+     * @param  Product  $product
      * @return View
      */
     public function edit(Product $product): View
@@ -77,8 +80,8 @@ class ProductController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * @param UpsertProductRequest $request
-     * @param Product $product
+     * @param  UpsertProductRequest  $request
+     * @param  Product  $product
      * @return RedirectResponse
      */
     public function update(UpsertProductRequest $request, Product $product): RedirectResponse
@@ -88,25 +91,26 @@ class ProductController extends Controller
             $product->image_path = $request->file('image')->store('products');
         }
         $product->save();
-        return redirect('products');
+        return redirect(route('products.index'))->with('status',  __('shop.product.status.update.success'));
     }
 
     /**
      * Remove the specified resource from storage.
-     * @param Product $product
+     * @param  Product  $product
      * @return JsonResponse
      */
-    public function destroy(Product $product):JsonResponse
+    public function destroy(Product $product): JsonResponse
     {
         try {
             $product->delete();
+            Session::flash('status',  __('shop.product.status.delete.success'));
             return response()->json([
-                'status'=>'success'
+                'status' => 'success'
             ]);
         } catch (Exception $e) {
             return response()->json([
-                'status'=>'error',
-                'message'=>'Wystąpił błąd.'
+                'status' => 'error',
+                'message' => 'Wystąpił błąd!'
             ])->setStatusCode(500);
         }
     }

@@ -7,6 +7,7 @@ use Exception;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\View\Factory;
 use Illuminate\View\View;
 
@@ -64,7 +65,6 @@ class UserController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
      * @param User $user
      * @return JsonResponse
      */
@@ -72,6 +72,7 @@ class UserController extends Controller
     {
         try {
             $user->delete();
+            Session::flash('status',  __('shop.user.status.delete.success'));
             return response()->json([
                 'status'=>'success'
             ]);
