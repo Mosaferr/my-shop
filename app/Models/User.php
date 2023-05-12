@@ -17,7 +17,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     /**
      * The attributes that are mass assignable.
-     *
      * @var array<int, string>
      */
     protected $fillable = [
@@ -25,12 +24,12 @@ class User extends Authenticatable implements MustVerifyEmail
         'surname',
         'phone_number',
         'email',
-        'password'
+        'role',
+        'password',
     ];
 
     /**
      * The attributes that should be hidden for serialization.
-     *
      * @var array<int, string>
      */
     protected $hidden = [
@@ -40,7 +39,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     /**
      * The attributes that should be cast.
-     *
      * @var array<string, string>
      */
     protected $casts = [
