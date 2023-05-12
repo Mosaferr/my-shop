@@ -5,14 +5,14 @@
         @include('helpers.flash-messages')
         <div class="row">
             <div class="col-6">
-                <h1>{{ __('shop.product.index_title') }}</h1>
+                <h1><i class="fa-solid fa-clipboard-list" style="color: #0d6efd;"></i> {{ __('shop.product.index_title') }}</h1>
             </div>
             <div class="col-6">
                 <a class="float-end" href="{{ route('products.create') }}">
-                    <button type="button" class="btn btn-primary">{{ __('shop.button.add') }}</button>
+{{--                    <button type="button" class="btn btn-primary"><i class="fa-sharp fa-solid fa-plus fa-lg"></i> {{ __('shop.button.add') }}</button>--}}
+                    <button type="button" class="btn btn-primary"><i class="fa-sharp fa-solid fa-plus fa-lg"></i></button>
                 </a>
             </div>
-        </div>
         <div class="row">
             <table class="table table-hover">
                 <thead>
@@ -37,13 +37,13 @@
                         <td>@if($product->HasCategory()) {{ $product->category->name }} @endif</td>
                         <td>
                             <a href="{{ route('products.show', $product->id) }}">
-                                <button class="btn btn-primary btn-sm">P</button>
+                                <button class="btn btn-primary btn-sm"><i class="fa-solid fa-magnifying-glass"></i></button>
                             </a>
                             <a href="{{ route('products.edit', $product->id) }}">
-                                <button class="btn btn-warning btn-sm">E</button>
+                                <button class="btn btn-warning btn-sm"><i class="fa-sharp fa-regular fa-pen-to-square fa-xl"></i></button>
                             </a>
                             <button class="btn btn-danger btn-sm delete" data-id="{{ $product->id }}">
-                                X
+                                <i class="fa-regular fa-trash-can fa-lg"></i>
                             </button>
                         </td>
                     </tr>

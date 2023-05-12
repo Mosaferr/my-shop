@@ -11,4 +11,16 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    css: {
+        preprocessorOptions: {
+            scss: {
+                additionalData: '@import "@fortawesome/fontawesome-free/css/all.css";'
+            }
+        }
+    },
+    resolve: {
+        alias: {
+            '@fortawesome/fontawesome-free$': '@fortawesome/fontawesome-free/webfonts',
+        },
+    },
 });
