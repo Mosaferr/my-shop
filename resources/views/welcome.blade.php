@@ -53,13 +53,24 @@
                                         @endif
                                     </div>
                                     <div class="card-body text-center">
+{{--
                                         <h4 class="card-title">
                                             {{ $product->name }}
                                         </h4>
                                         <h5 class="card-price small">
                                             <i>PLN {{ $product->price }}</i>
                                         </h5>
+--}}
                                     </div>
+                                    <h4 class="card-title">
+                                        {{ $product->name }}
+                                    </h4>
+                                    <h5 class="card-price small">
+                                        <i>PLN {{ $product->price }}</i>
+                                    </h5>
+                                    <button class="btn btn-success btn-sm add-cart-button" data-id="{{ $product->id }}" @guest disabled @endguest>
+                                        <i class="fa-solid fa-cart-plus fa-lg"></i> Dodaj do koszyka
+                                    </button>
                                 </div>
                             </div>
                         @endforeach
@@ -116,8 +127,11 @@
 @endsection
 
 @section('javascript')
-    const storagePath = '{{ asset('storage') }}/';
-    const defaultImage = '{{ $defaultImage }}';
+    const WELCOME_DATA = {
+    storagePath : '{{ asset('storage') }}/',
+    defaultImage : '{{ $defaultImage }}',
+    addToCart: '{{ url('cart') }}/'
+    }
 @endsection
 
 @section('js-files')
