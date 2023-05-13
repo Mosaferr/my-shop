@@ -9,9 +9,11 @@ use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 //use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ProductController extends Controller
 {
@@ -24,7 +26,6 @@ class ProductController extends Controller
         return view("products.index", [
             'products' => Product::paginate(10)
         ]);
-
     }
 
     /**
@@ -61,8 +62,7 @@ class ProductController extends Controller
     public function show(Product $product): View
     {
         return view("products.show", [
-            'product' => $product,
-            'categories' => ProductCategory::all()
+            'product' => $product
         ]);
     }
 
@@ -96,7 +96,7 @@ class ProductController extends Controller
             $product->image_path = $request->file('image')->store('products');
         }
         $product->save();
-        return redirect(route('products.index'))->with('status',  __('shop.product.status.update.success'));
+        return redirect(route('products.index'))->with('status', __('shop.product.status.update.success'));
     }
 
     /**
@@ -108,7 +108,7 @@ class ProductController extends Controller
     {
         try {
             $product->delete();
-            Session::flash('status',  __('shop.product.status.delete.success'));
+            Session::flash('status', __('shop.product.status.delete.success'));
             return response()->json([
                 'status' => 'success'
             ]);
@@ -118,5 +118,18 @@ class ProductController extends Controller
                 'message' => 'Wystąpił błąd!'
             ])->setStatusCode(500);
         }
+    }
+
+    /**
+     * Download image of the specified resource in storage.
+     * @param  Product  $product
+     * @return RedirectResponse|StreamedResponse
+     */
+    public function downloadImage(Product $product): RedirectResponse|StreamedResponse
+    {
+        if (Storage::exists($product->image_path)) {
+            return Storage::download($product->image_path);
+        }
+        return Redirect::back();
     }
 }
