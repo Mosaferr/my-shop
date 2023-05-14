@@ -13,6 +13,7 @@
                     <button type="button" class="btn btn-primary"><i class="fa-sharp fa-solid fa-plus fa-lg"></i></button>
                 </a>
             </div>
+        </div>
         <div class="row">
             <table class="table table-hover">
                 <thead>

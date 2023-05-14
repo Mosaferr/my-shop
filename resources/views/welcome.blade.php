@@ -15,7 +15,7 @@
                             <div class="dropdown text-md-left text-center float-md-left mb-3 mt-3 mt-md-0 mb-md-0">
                                 <label class="mr-2">Sortuj:</label>
                                 <a class="btn btn-lg btn-light dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Relevance <span class="caret"></span></a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown" x-placement="bottom-start" style="position: absolute; transform: translate3d(71px, 48px, 0px); top: 0; left: 0; will-change: transform;">
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="position: absolute; transform: translate3d(71px, 48px, 0px); top: 0; left: 0; will-change: transform;">
                                     <a class="dropdown-item" href="#">Relevance</a>
                                     <a class="dropdown-item" href="#">Price Descending</a>
                                     <a class="dropdown-item" href="#">Price Ascending</a>
@@ -29,9 +29,8 @@
                             </div>
 
                             <div class="dropdown float-right">
-{{--                                <label class="mr-2">Liczba:</label>--}}
-                                <a class="btn btn-lg btn-light dropdown-toggle products-actual-count" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">6<span class="caret"></span></a>
-                                <div class="dropdown-menu dropdown-menu-right products-count" aria-labelledby="navbarDropdown" x-placement="bottom-end" style="will-change: transform; position: absolute; transform: translate3d(120px, 48px, 0px); top: 0; left: 0;">
+                                <a class="btn btn-lg btn-light dropdown-toggle products-actual-count" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">5<span class="caret"></span></a>
+                                <div class="dropdown-menu dropdown-menu-right products-count" aria-labelledby="navbarDropdown" style="will-change: transform; position: absolute; transform: translate3d(120px, 48px, 0px); top: 0; left: 0;">
                                     <a class="dropdown-item" href="#">6</a>
                                     <a class="dropdown-item" href="#">9</a>
                                     <a class="dropdown-item" href="#">12</a>
@@ -53,21 +52,13 @@
                                         @endif
                                     </div>
                                     <div class="card-body text-center">
-{{--
                                         <h4 class="card-title">
                                             {{ $product->name }}
                                         </h4>
                                         <h5 class="card-price small">
                                             <i>PLN {{ $product->price }}</i>
                                         </h5>
---}}
                                     </div>
-                                    <h4 class="card-title">
-                                        {{ $product->name }}
-                                    </h4>
-                                    <h5 class="card-price small">
-                                        <i>PLN {{ $product->price }}</i>
-                                    </h5>
                                     <button class="btn btn-success btn-sm add-cart-button" data-id="{{ $product->id }}" @guest disabled @endguest>
                                         <i class="fa-solid fa-cart-plus fa-lg"></i> Dodaj do koszyka
                                     </button>
@@ -80,14 +71,13 @@
                         <div class="col-12">
                             <a class="btn btn-light">
                                 <i class="fas fa-arrow-up mr-2"></i> Back to top</a>
-                            <div class="btn-group float-md-right ml-3">
+                            <div class="btn-group">
                                 <button type="button" class="btn btn-lg btn-light"> <span class="fa fa-arrow-left"></span> </button>
                                 <button type="button" class="btn btn-lg btn-light"> <span class="fa fa-arrow-right"></span> </button>
                             </div>
                             <div class="dropdown float-md-right">
-{{--                                <label class="mr-2">Ilość:</label>--}}
-                                <a class="btn btn-light btn-lg dropdown-toggle products-actual-count" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">6<span class="caret"></span></a>
-                                <div class="dropdown-menu" products-count aria-labelledby="navbarDropdown">
+                                <a class="btn btn-light btn-lg dropdown-toggle products-actual-count" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">5<span class="caret"></span></a>
+                                <div class="dropdown-menu products-count" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="#">6</a>
                                     <a class="dropdown-item" href="#">9</a>
                                     <a class="dropdown-item" href="#">12</a>
@@ -125,15 +115,15 @@
         </div>
     </div>
 @endsection
-
 @section('javascript')
     const WELCOME_DATA = {
-    storagePath : '{{ asset('storage') }}/',
-    defaultImage : '{{ $defaultImage }}',
-    addToCart: '{{ url('cart') }}/'
+        storagePath: '{{ asset('storage') }}/',
+        defaultImage: '{{ $defaultImage }}',
+        addToCart: '{{ url('cart') }}/',
+        listCart: '{{ url('cart') }}',
+        isGuest: '{{ $isGuest }}'
     }
 @endsection
-
 @section('js-files')
     {{--    <script src="{{ asset("js/welcome.js") }}"></script>--}}
     @vite('resources/js/welcome.js')

@@ -65,13 +65,21 @@ class CartItem
         return $this->imagePath;
     }
 
-//    /**
-//     * @return float
-//     */
-//    public function getSum(): float
-//    {
-//        return $this->price * $this->quantity;
-//    }
+    /**
+     * @return float
+     */
+    public function getSum(): float
+    {
+        return $this->price * $this->quantity;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImage(): string
+    {
+        return !is_null($this->imagePath) ? asset("storage/" . $this->imagePath) : config("shop.defaultImage");
+    }
 
     /**
      * @param Product $product

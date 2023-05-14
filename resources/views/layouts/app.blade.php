@@ -15,6 +15,7 @@
 
     <!-- Scripts -->
     @vite('resources/sass/app.scss')
+    @yield('css-files')
 </head>
 <body>
     <div id="app">
@@ -37,12 +38,9 @@
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
@@ -59,6 +57,7 @@
                                         <a class="dropdown-item" href="/users/list">Użytkownicy</a>
                                         <a class="dropdown-item" href="{{ route('products.index') }}">Produkty</a>
                                     @endcan
+                                    <a class="dropdown-item" href="{{ route('cart.index') }}">Koszyk</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

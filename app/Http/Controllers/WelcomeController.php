@@ -8,6 +8,7 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class WelcomeController extends Controller
@@ -36,12 +37,14 @@ class WelcomeController extends Controller
                 $query = $query->where('price', '<=', $filters['price_max']);
             }
 
-            return response()->json($query->paginate($paginate));        }
+            return response()->json($query->paginate($paginate));
+        }
 
         return view("welcome", [
             'products' => $query->paginate($paginate),
             'categories' => ProductCategory::orderBy('name', 'ASC')->get(),
-            'defaultImage' => config('shop.defaultImage')
+            'defaultImage' => config('shop.defaultImage'),
+            'isGuest' => Auth::guest()
         ]);
     }
 }
