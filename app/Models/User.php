@@ -4,17 +4,16 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-//use Laravel\Sanctum\HasApiTokens;
 
 /**
  * @method static paginate(int $int)
  */
 class User extends Authenticatable implements MustVerifyEmail
 {
-//    use HasApiTokens, HasFactory, Notifiable;
     use HasFactory, Notifiable;
 
     /**
@@ -53,6 +52,14 @@ class User extends Authenticatable implements MustVerifyEmail
     public function address(): HasOne
     {
         return $this->hasOne(Address::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
     }
 
     /**
