@@ -40,7 +40,7 @@
                                                     <div class="cart_item_text">{{ $item->getSum() }}</div>
                                                 </div>
                                                 <div class="col-md-1">
-                                                    <button class="btn btn-danger btn-sm delete" data-id="{{ $item->getProductId() }}">
+                                                    <button type="button" class="btn btn-danger btn-sm delete" data-id="{{ $item->getProductId() }}">
                                                         <i class="far fa-trash-alt"></i>
                                                     </button>
                                                 </div>

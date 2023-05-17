@@ -8,7 +8,7 @@
                 <h1><i class="fa-solid fa-clipboard-list" style="color: #0d6efd;"></i> Zamówienia</h1>
         </div>
     </div>
-	
+
     <div class="row">
         <table class="table table-hover">
             <thead>
@@ -16,6 +16,7 @@
                 <th scope="col">#</th>
                 <th scope="col">Ilość</th>
                 <th scope="col">Cena [PLN]</th>
+                <th scope="col">Status zamówienia</th>
                 <th scope="col">Produkty</th>
             </tr>
             </thead>
@@ -25,6 +26,7 @@
                     <th scope="row">{{ $order->id }}</th>
                     <td>{{ $order->quantity }}</td>
                     <td>{{ $order->price }}</td>
+                    <td>{{ $order->payment->status ?? 'No status' }}</td>
                     <td>
                         <ul>
                             @foreach($order->products as $product)

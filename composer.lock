@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7e71aa9b06b9cda30620373e8f1e2718",
+    "content-hash": "2e7230b6d8b3c0d494a16b293a472552",
     "packages": [
         {
             "name": "brick/math",
@@ -61,6 +61,56 @@
                 }
             ],
             "time": "2022-08-10T22:54:19+00:00"
+        },
+        {
+            "name": "devpark/laravel-przelewy24",
+            "version": "v3.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/devpark/laravel-przelewy24.git",
+                "reference": "3683a4d6507ebe27e52bd8ffab39c6085b6d8e2a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/devpark/laravel-przelewy24/zipball/3683a4d6507ebe27e52bd8ffab39c6085b6d8e2a",
+                "reference": "3683a4d6507ebe27e52bd8ffab39c6085b6d8e2a",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "guzzlehttp/guzzle": ">=6.3",
+                "laravel/framework": ">=5.0",
+                "php": ">=7.1.0",
+                "ramsey/uuid": "^3 || ^4"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.1",
+                "mockery/mockery": "^0.9.6",
+                "phpunit/phpunit": "^5.6"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Devpark\\Transfers24\\Providers\\Transfers24ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Devpark\\Transfers24\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Laravel przelewy24.pl integration",
+            "support": {
+                "issues": "https://github.com/devpark/laravel-przelewy24/issues",
+                "source": "https://github.com/devpark/laravel-przelewy24/tree/v3.0.3"
+            },
+            "time": "2023-04-05T21:31:02+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -780,22 +830,22 @@
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "2.4.4",
+            "version": "2.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "3cf1b6d4f0c820a2cf8bcaec39fc698f3443b5cf"
+                "reference": "b635f279edd83fc275f822a1188157ffea568ff6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/3cf1b6d4f0c820a2cf8bcaec39fc698f3443b5cf",
-                "reference": "3cf1b6d4f0c820a2cf8bcaec39fc698f3443b5cf",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/b635f279edd83fc275f822a1188157ffea568ff6",
+                "reference": "b635f279edd83fc275f822a1188157ffea568ff6",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.2.5 || ^8.0",
                 "psr/http-factory": "^1.0",
-                "psr/http-message": "^1.0",
+                "psr/http-message": "^1.1 || ^2.0",
                 "ralouphie/getallheaders": "^3.0"
             },
             "provide": {
@@ -815,9 +865,6 @@
                 "bamarni-bin": {
                     "bin-links": true,
                     "forward-command": false
-                },
-                "branch-alias": {
-                    "dev-master": "2.4-dev"
                 }
             },
             "autoload": {
@@ -879,7 +926,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/psr7/issues",
-                "source": "https://github.com/guzzle/psr7/tree/2.4.4"
+                "source": "https://github.com/guzzle/psr7/tree/2.5.0"
             },
             "funding": [
                 {
@@ -895,7 +942,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-03-09T13:19:02+00:00"
+            "time": "2023-04-17T16:11:26+00:00"
         },
         {
             "name": "guzzlehttp/uri-template",
