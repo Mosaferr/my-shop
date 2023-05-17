@@ -5,7 +5,7 @@
     @include('helpers.flash-messages')
     <div class="row">
         <div class="col-6">
-                <h1><i class="fa-solid fa-clipboard-list" style="color: #0d6efd;"></i> Zamówienia</h1>
+                <h1 style="color: #572c08;"><i class="fa-solid fa-bag-shopping"></i> Zamówienia</h1>
         </div>
     </div>
 

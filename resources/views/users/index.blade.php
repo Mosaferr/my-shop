@@ -5,7 +5,7 @@
     @include('helpers.flash-messages')
     <div class="row">
         <div class="col-6">
-                <h1><i class="fa-solid fa-user-tie"></i>  {{ __('shop.user.index_title') }}</h1>
+                <h1 style="color: #572c08;"><i class="fa-solid fa-user-tie"></i>  {{ __('shop.user.index_title') }}</h1>
         </div>
     </div>
     <table class="table table-hover">

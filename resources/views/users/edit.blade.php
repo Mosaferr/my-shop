@@ -12,7 +12,7 @@
                         {{ method_field('PUT') }}
                         @csrf
 
-                        <div class="form-group row">
+                        <div class="row mb-3">
                             <label for="city" class="col-md-4 col-form-label text-md-right">Miasto</label>
                             <div class="col-md-6">
                                 <input id="city" type="text" maxlength="255" class="form-control @error('city') is-invalid @enderror" name="address[city]" value="{{ $user?->address?->city }}" required autocomplete="city" autofocus>
@@ -24,7 +24,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <div class="row mb-3">
                             <label for="zip_code" class="col-md-4 col-form-label text-md-right">Kod pocztowy</label>
                             <div class="col-md-6">
                                 <input id="zip_code" type="text" maxlength="6" class="form-control @error('zip_code') is-invalid @enderror" name="address[zip_code]" value="{{ $user?->address?->zip_code }}" required autocomplete="zip_code" autofocus>
@@ -36,7 +36,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <div class="row mb-3">
                             <label for="street" class="col-md-4 col-form-label text-md-right">Ulica</label>
                             <div class="col-md-6">
                                 <input id="street" type="text" maxlength="255" class="form-control @error('street') is-invalid @enderror" name="address[street]" value="{{ $user?->address?->street }}" required autocomplete="street" autofocus>
@@ -48,7 +48,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <div class="row mb-3">
                             <label for="street_no" class="col-md-4 col-form-label text-md-right">Numer ulicy</label>
                             <div class="col-md-6">
                                 <input id="street_no" type="text" maxlength="5" class="form-control @error('street_no') is-invalid @enderror" name="address[street_no]" value="{{ $user?->address?->street_no }}" required autocomplete="street_no" autofocus>
@@ -60,7 +60,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <div class="row mb-3">
                             <label for="home_no" class="col-md-4 col-form-label text-md-right">Numer domu</label>
                             <div class="col-md-6">
                                 <input id="home_no" type="text" maxlength="5" class="form-control @error('home_no') is-invalid @enderror" name="address[home_no]" value="{{ $user?->address?->home_no }}" required autocomplete="home_no" autofocus>
@@ -72,8 +72,8 @@
                             </div>
                         </div>
 
-                        <div class="form-group row mb-0 float-right">
-                            <div class="col-md-6">
+                        <div class="row mb-0">
+                                <div class="col-md-6 offset-md-10">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('shop.button.save') }}
                                 </button>
