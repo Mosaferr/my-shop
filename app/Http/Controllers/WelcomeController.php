@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\ProductCategory;
-use Exception;
+use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -20,6 +19,7 @@ class WelcomeController extends Controller
      */
     public function index(Request $request): View|JsonResponse
     {
+        Debugbar::info($request);  // zamiast info może być warning albo error
         $filters = $request->query('filter');
         $paginate = $request->query('paginate');
 //        $paginate = $request->query('paginate') ?? 5;

@@ -90,8 +90,8 @@
                                 </div>
                             </div>
 
-                            <div class="row justify-content-center">
-                                <div class="col-md-6 offset-md-2">
+                            <div class="row">
+                                <div class="col-md-6 offset-md-4">
                                     @if(!is_null($product->image_path))
                                         <a href="{{ route('products.downloadImage', $product->id) }}">
                                             <img src="{{ asset('storage/' . $product->image_path) }}" alt="{{ __('shop.product.fields.image') }}">

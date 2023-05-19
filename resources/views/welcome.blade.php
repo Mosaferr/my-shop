@@ -5,6 +5,7 @@
 @extends('layouts.app')
 
 @section('content')
+    <a id="top"></a>
     <div class="container pt-5">
         <div class="row">
             <div class="col-md-8 order-md-2 col-lg-9">
@@ -12,15 +13,13 @@
 
                     <div class="row   mb-5">
                         <div class="col-12">
-{{--                            <div class="dropdown float-right">--}}
-                                <a class="btn btn-lg btn-light dropdown-toggle products-actual-count" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">5<span class="caret"></span></a>
-                                <div class="dropdown-menu dropdown-menu-right products-count" aria-labelledby="navbarDropdown" style="will-change: transform; position: absolute; transform: translate3d(120px, 48px, 0px); top: 0; left: 0;">
-                                    <a class="dropdown-item" href="#">6</a>
-                                    <a class="dropdown-item" href="#">9</a>
-                                    <a class="dropdown-item" href="#">12</a>
-                                    <a class="dropdown-item" href="#">18</a>
-                                </div>
-{{--                            </div>--}}
+                            <a class="btn btn-lg btn-light dropdown-toggle products-actual-count" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ count($products) }}<span class="caret"></span></a>
+                            <div class="dropdown-menu dropdown-menu-right products-count" aria-labelledby="navbarDropdown" style="will-change: transform; position: absolute; transform: translate3d(120px, 48px, 0px); top: 0; left: 0;">
+                                <a class="dropdown-item" href="#">6</a>
+                                <a class="dropdown-item" href="#">9</a>
+                                <a class="dropdown-item" href="#">12</a>
+                                <a class="dropdown-item" href="#">18</a>
+                            </div>
                             <div class="btn-group" style="float: right;">
                                 <button type="button" class="btn btn-lg btn-light"> <span class="fa fa-arrow-left"></span> </button>
                                 <button type="button" class="btn btn-lg btn-light"> <span class="fa fa-arrow-right"></span> </button>
@@ -58,17 +57,14 @@
 
                     <div class="row sorting mb-5 mt-5">
                         <div class="col-12">
-{{--                            <div class="dropdown float-md-right">--}}
-                                <a class="btn btn-light btn-lg dropdown-toggle products-actual-count" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">5<span class="caret"></span></a>
-                                <div class="dropdown-menu products-count" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#">6</a>
-                                    <a class="dropdown-item" href="#">9</a>
-                                    <a class="dropdown-item" href="#">12</a>
-                                    <a class="dropdown-item" href="#">18</a>
-                                </div>
-{{--                            </div>--}}
-{{--                            <a class="btn btn-light">--}}
-{{--                                <i class="fas fa-arrow-up mr-2"></i> Back to top</a>--}}
+                            <a class="btn btn-light btn-lg dropdown-toggle products-actual-count" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ count($products) }}<span class="caret"></span></a>
+                            <div class="dropdown-menu products-count" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">6</a>
+                                <a class="dropdown-item" href="#">9</a>
+                                <a class="dropdown-item" href="#">12</a>
+                                <a class="dropdown-item" href="#">18</a>
+                            </div>
+                            <a href="#top" class="btn btn-light"> <i class="fas fa-arrow-up mr-2"></i> Powrót do góry</a>
                             <div class="btn-group" style="float: right;">
                                 <button type="button" class="btn btn-lg btn-light"> <span class="fa fa-arrow-left"></span> </button>
                                 <button type="button" class="btn btn-lg btn-light"> <span class="fa fa-arrow-right"></span> </button>
@@ -80,7 +76,7 @@
             </div>
 
             <form class="col-md-4 order-md-1 col-lg-3 sidebar-filter">
-                <h3 class="mt-0 mb-5">{{ __('shop.welcome.products') }} <span class="text-primary">{{ count($products) }}</span></h3>
+                <h4 class="mt-0 mb-5">{{ __('shop.welcome.products') }} <span class="text-primary">{{ count($products) }}</span></h4>
                 <h6 class="text-uppercase font-weight-bold mb-3">{{ __('shop.welcome.categories') }}</h6>
                 @foreach($categories as $category)
                     <div class="mt-2 mb-2 pl-2">
@@ -100,7 +96,7 @@
                 <input id="ex2" type="text" class="slider " value="50,150" data-slider-min="10" data-slider-max="200" data-slider-step="5" data-slider-value="[50,150]" data-value="50,150" style="display: none;">
                 <div class="divider mt-5 mb-5 border-bottom border-secondary"></div>
 
-                <a href="#" class="btn btn-lg btn-block btn-primary mt-5" id="filter-button"><i class="fa-solid fa-magnifying-glass"></i> {{ __('shop.welcome.filter') }}</a>
+                <a href="#" class="btn btn-lg btn-block btn-secondary mt-5" id="filter-button"><i class="fa-solid fa-magnifying-glass"></i> {{ __('shop.welcome.filter') }}</a>
             </form>
         </div>
     </div>

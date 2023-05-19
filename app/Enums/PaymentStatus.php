@@ -4,9 +4,9 @@ namespace App\Enums;
 
 class PaymentStatus
 {
-    const IN_PROGRESS = 'in_progress';
-    const SUCCESS = 'success';
-    const FAIL = 'fail';
+    const IN_PROGRESS = 'Przetwarzanie';
+    const SUCCESS = 'Zrealizowane';
+    const FAIL = 'Niezrealizowane';
 
     const TYPES = [
         self::IN_PROGRESS,
