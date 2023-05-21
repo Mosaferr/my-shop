@@ -26,7 +26,7 @@
                     <th scope="row">{{ $order->id }}</th>
                     <td>{{ $order->quantity }}</td>
                     <td>{{ $order->price }}</td>
-                    <td>{{ $order->payment->status ?? 'No status' }}</td>
+                    <td>{{ $order->payment->status ?? 'Brak' }}</td>
                     <td>
                         <ul>
                             @foreach($order->products as $product)
