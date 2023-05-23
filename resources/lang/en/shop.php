@@ -40,6 +40,9 @@ return [
             'delete' => [
                 'success' => 'Product deleted!'
             ],
+            'sold' => [
+                'success' => 'Payment confirmed. Thank you for shopping.'
+            ],
         ],
         'fields' => [
             'name' => 'Name',

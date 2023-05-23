@@ -14,9 +14,10 @@
                             </div>
                         @endif
                         <div class="alert alert-success" role="alert">
-                            Płatność zatwierdzona! Dziękujemy za zakupy!
+                            Płatność zatwierdzona. Dziękujemy za zakupy w naszym sklepie.
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>

@@ -14,9 +14,10 @@
                             </div>
                         @endif
                         <div class="alert alert-success" role="alert">
-                            Płatność odrzucona! Spróbuj ponownie!
+                            Płatność odrzucona. Spróbuj ponownie.
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>

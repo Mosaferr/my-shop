@@ -14,6 +14,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Http\Request;
+use Stripe\Stripe;
 
 class OrderController extends Controller
 {
@@ -24,10 +26,7 @@ class OrderController extends Controller
         $this->transfers24 = $transfers24;
     }
 
-    /**
-     * Display a listing of the resource.
-     * @return View
-     */
+    /** Display a listing of the resource */
     public function index(): View
     {
         return view("orders.index", [
@@ -35,12 +34,11 @@ class OrderController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @return RedirectResponse
-     */
-    public function store(): RedirectResponse
+    /**  Store a newly created resource in storage */
+    public function store(Request $request): RedirectResponse
     {
+        $paymentSystem = $request->post('inlineRadioOptions');
+
         $cart = Session::get('cart', new Cart());
         if ($cart->hasItems()) {
             $order = new Order();
@@ -52,17 +50,23 @@ class OrderController extends Controller
                 return ['product_id' => $item->getProductId()];
             });
             $order->products()->attach($productIds);
-            return $this->paymentTransaction($order);
+
+            switch ($paymentSystem) {
+                case 'option1':
+                    return $this->paymentTransfer24($order);
+                case 'option2':
+                    return $this->paymentStripe($order);
+                case 'option3':
+                    return $this->paymentPaypal($order);
+                default:
+                    Log::error("Błąd transakcji");
+                    return back()->with('warning', 'Coś poszło nie tak.');
+            }
         }
         return back();
     }
-
-    /**
-     * @param Order $order
-     * @return mixed|void
-     * @throws RequestException
-     */
-    private function paymentTransaction(Order $order)
+/*===================================================================================================================*/
+    private function paymentTransfer24(Order $order)
     {
         $payment = new Payment();
         $payment->order_id = $order->id;
@@ -80,11 +84,36 @@ class OrderController extends Controller
                 $payment->error_code = $response->getErrorCode();
                 $payment->error_description = json_encode($response->getErrorDescription());
                 $payment->save();
-                return back()->with('warning', 'Ups... Coś poszło nie tak.');
+                return back()->with('warning', 'Coś poszło nie tak.');
             }
         } catch (RequestException|RequestExecutionException $error) {
             Log::error("Błąd transakcji", ['error' => $error]);
-            return back()->with('warning', 'Ups... Coś poszło nie tak.');
+            return back()->with('warning', 'Coś poszło nie tak.');
         }
+    }
+/*-------------------------------------------------------------------------------------------------------------------*/
+    public function paymentStripe(Order $order)
+    {
+        $cart = Session::get('cart',new Cart());
+        Stripe::setApiKey(config('stripe.sk'));
+        $session = \Stripe\Checkout\Session::create([
+            'line_items' => [
+                [
+                    'price_data' => [
+                        'currency' => 'pln',
+                        'product_data' => [
+                            'name' => 'Do zapłaty:',
+                        ],
+                        'unit_amount' => $cart->getSum() * 100,
+                    ],
+                    'quantity' => 1,
+                ],
+            ],
+            'mode' => 'payment',
+            'success_url' => route('success'),
+            'cancel_url' => route('cancel'),
+        ]);
+        Session::put('order_id', $order->id);
+        return redirect()->away($session->url);
     }
 }

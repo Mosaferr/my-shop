@@ -49,23 +49,35 @@
                                 </div>
 
                                 <div class="order_total">
-                                    <div class="order_total_content text-md-right">
+                                    <div class="order_total_content text-md-end">
                                         <div class="order_total_title">Suma [PLN]:</div>
                                         <div class="order_total_amount">{{ $cart->getSum() }}</div>
                                     </div>
                                 </div>
 
+                                <div class="order_total">
+                                    <div class="order_total_content">
+                                        <div class="order_total_title col-md-7">Metoda płatności:</div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                            <label class="form-check-label" for="inlineRadio1">Przelewy24</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                            <label class="form-check-label" for="inlineRadio2">Stripe</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                                            <label class="form-check-label" for="inlineRadio3">Paypal</label>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="cart_buttons">
                                     <a href="/" class="button cart_button_clear">Wróć do sklepu</a>
-                                    <button type="submit" class="button cart_button_checkout" {{ !$cart->hasItems() ? 'disabled' : '' }}>Zapłać przez Przelewy24</button>
+                                    <button type="submit" class="button cart_button_checkout" {{ !$cart->hasItems() ? 'disabled' : '' }}>Zapłać</button>
                                 </div>
                             </form>
-
-                            <form action="/session" method="POST" style="text-align: right;">
-                                <input type="hidden" name="_token" value="{{csrf_token()}}">
-                                <button type="submit" class="button cart_button_checkout" id="checkout-live-button">Zapłać przez Stripe</button>
-                            </form>
-
                         </div>
                     </div>
                 </div>
@@ -80,6 +92,5 @@
 @endsection
 
 @section('js-files')
-    {{--    <script src="{{ asset('js/delete.js') }}"></script>--}}
     @vite('resources/js/delete.js')
 @endsection

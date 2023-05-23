@@ -43,11 +43,10 @@ Route::middleware(['auth', 'verified'])->group(function() {
 });
 
 Route::post('/payment/status', [PaymentController::class, 'status']);
-Route::get('/hello', [HelloWorldController::class, 'show']);
+//Route::get('/hello', [HelloWorldController::class, 'show']);
 
-Route::post('/session', 'StripeController@session')->name('session');
-Route::get('/success', 'StripeController@success')->name('success');
-Route::get('/cancel', 'StripeController@cancel')->name('cancel');
-Route::post('/stripe/update-status', [StripeController::class, 'updatePaymentStatus'])->name('stripe.update-status');
+Route::get('/success', [StripeController::class, 'success']) ->name('success');
+Route::get('/cancel', [StripeController::class, 'cancel'])->name('cancel');
+//Route::post('/stripe/update-status', [StripeController::class, 'updatePaymentStatus'])->name('stripe.update-status');
 
 Auth::routes(['verify' => true]);

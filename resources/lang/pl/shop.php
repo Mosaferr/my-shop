@@ -51,6 +51,9 @@ return [
             'delete' => [
                 'success' => 'Produkt usunięty!'
             ],
+            'sold' => [
+                'success' => 'Płatność zatwierdzona. Dziękujemy za zakupy.'
+            ],
         ],
         'fields' => [
             'name' => 'Nazwa',
