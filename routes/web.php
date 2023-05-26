@@ -49,4 +49,7 @@ Route::get('/success', [StripeController::class, 'success']) ->name('success');
 Route::get('/cancel', [StripeController::class, 'cancel'])->name('cancel');
 //Route::post('/stripe/update-status', [StripeController::class, 'updatePaymentStatus'])->name('stripe.update-status');
 
+//Route::get('success', [OrderController::class, 'success']);
+//Route::get('error', [OrderController::class, 'error']);
+
 Auth::routes(['verify' => true]);

@@ -19,10 +19,13 @@ class WelcomeController extends Controller
      */
     public function index(Request $request): View|JsonResponse
     {
-        Debugbar::info($request);  // zamiast info może być warning albo error
         $filters = $request->query('filter');
         $paginate = $request->query('paginate');
 //        $paginate = $request->query('paginate') ?? 5;
+
+//        Debugbar::info($paginate);  // zamiast info może być warning albo error
+        /*var_dump($paginate);
+        die();*/
 
         $query = Product::query();
 
