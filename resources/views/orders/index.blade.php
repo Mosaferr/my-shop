@@ -26,7 +26,6 @@
                     <th scope="row">{{ $order->id }}</th>
                     <td>{{ $order->quantity }}</td>
                     <td>{{ $order->price }}</td>
-{{--                    <td>{{ $order->payment->status ?? 'Brak' }}</td>--}}
                     <td>{{ $order->payment->status ?? 'Zrealizowane' }}</td>
                     <td>
                         <ul>

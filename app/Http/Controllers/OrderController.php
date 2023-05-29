@@ -23,15 +23,13 @@ class OrderController extends Controller
 {
     private Transfers24 $transfers24;
     public $gateway;
-//    private \Omnipay\Common\GatewayInterface $gateway;
     public function __construct(Transfers24 $transfers24)
     {
         $this->transfers24 = $transfers24;
         $this->gateway = Omnipay::create('PayPal_Rest');
-
         $this->gateway->setClientId(env('PAYPAL_CLIENT_ID'));
         $this->gateway->setSecret(env('PAYPAL_SECRET_ID'));
-        $this->gateway->setTestMode(true); //'false' when go live
+        $this->gateway->setTestMode(true); // set 'false' when go live
     }
     /** Display a listing of the resource */
     public function index(): View
@@ -44,7 +42,6 @@ class OrderController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $paymentSystem = $request->post('inlineRadioOptions');
-
         $cart = Session::get('cart', new Cart());
         if ($cart->hasItems()) {
             $order = new Order();
@@ -65,13 +62,12 @@ class OrderController extends Controller
                 case 'option3':
                     return $this->paymentPaypal($order);
                 default:
-                    Log::error("Błąd transakcji");
                     return back()->with('warning', 'Coś poszło nie tak.');
             }
         }
         return back();
     }
-/*======================================================================================*/
+
     private function paymentTransfer24(Order $order)
     {
         $payment = new Payment();
@@ -97,96 +93,85 @@ class OrderController extends Controller
             return back()->with('warning', 'Coś poszło nie tak.');
         }
     }
-/*--------------------------------------------------------------------------------------*/
+
     public function paymentStripe(Order $order)
     {
-        $cart = Session::get('cart',new Cart());
-        Stripe::setApiKey(config('stripe.sk'));
-        $session = \Stripe\Checkout\Session::create([
-            'line_items' => [
-                [
-                    'price_data' => [
-                        'currency' => 'pln',
-                        'product_data' => [
-                            'name' => 'Do zapłaty:',
-                        ],
-                        'unit_amount' => $cart->getSum() * 100,
-                    ],
-                    'quantity' => 1,
-                ],
-            ],
-            'mode' => 'payment',
-            'success_url' => route('success'),
-            'cancel_url' => route('cancel'),
-        ]);
-        Session::put('order_id', $order->id);
-        return redirect()->away($session->url);
-    }
-/*--------------------------------------------------------------------------------------*/
-
-    public function paymentPaypal(Order $order)
-    {
-        $cart = Session::get('cart',new Cart());
+        $cart = Session::get('cart', new Cart());
         try {
-            $response=$this->gateway->purchase(array(
-                'amount'=>$cart->getSum(),
-                'currency'=>env('PAYPAL_CURRENCY'),
-                'returnUrl' => route('success'),
-                'cancelUrl'=>url('error'),
-
-                /*'returnUrl'=>url('success'),
-                'cancelUrl'=>url('error'),
-
+            Stripe::setApiKey(config('stripe.sk'));
+            $session = \Stripe\Checkout\Session::create([
+                'line_items' => [
+                    [
+                        'price_data' => [
+                            'currency' => 'pln',
+                            'product_data' => [
+                                'name' => 'Do zapłaty:',
+                            ],
+                            'unit_amount' => $cart->getSum() * 100,
+                        ],
+                        'quantity' => 1,
+                    ],
+                ],
+                'mode' => 'payment',
                 'success_url' => route('success'),
-                'cancel_url' => route('cancel'),*/
-            ))->send();
-
-            if($response->isRedirect()) {
-                $response->redirect();  // this will automatically forward the customer
-
-            } else {      // not successful
-                return $response->getMessage();
-            }
-        }catch(\Throwable $th) {
+                'cancel_url'=> url('cancel'),
+            ]);
+            Session::put('order_id', $order->id);
+            return redirect()->away($session->url);
+        } catch (\Throwable $th) {
             return $th->getMessage();
         }
     }
 
-
-//    public function success(Request $request)
-//    {
-//        if ($request->input('paymentId') && $request->input('PayerID')) {
-//            $transaction = $this->gateway->completePurchase(array(
-//                'payer_id' => $request->input('PayerID'),
-//                'transactionReference' => $request->input('paymentId')
-//            ));
-//            $response = $transaction->send();
-//            if ($response->isSuccessful()) {
-//
-//                /*$orderId = Session::get('order_id');
-//                $order = Order::findOrFail($orderId);
-//                $payment = new Payment([
-//                    'status' => PaymentStatus::SUCCESS,
-//                    'session_id' => $request->session_id,
-//                    'order_id' => $order->id,
-//                ]);
-//                $payment->save();*/
-//
-//                //Debugbar::info($payment);
-//
-//                Session::put('cart', new Cart());   //czysty koszyk
-//                return redirect()->route('cart.index');
-////                return 'Płatność PayPal ZREALIZOWANA';
-//            } else {
-//                return $response->getMessage();
-//            }
-//
-//        } else {
-//            return 'Płatność PayPal odrzucono';
-//        }
-//    }
-    public function error()
+    public function paymentPaypal(Order $order)
     {
-        return 'Klient odmówił płatności PayPal';
+        $cart = Session::get('cart', new Cart());
+        try {
+            $response = $this->gateway->purchase([
+                'amount' => $cart->getSum(),
+                'currency' => env('PAYPAL_CURRENCY'),
+                'returnUrl' => route('success'),
+                'cancelUrl' => route('cancel'),
+            ])->send();
+
+            if ($response->isRedirect()) {
+                $response->redirect();
+                return redirect();
+
+            } else {
+                return $response->getMessage();
+            }
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+
+    public function success(Request $request)
+    {
+        $orderId = Session::get('order_id');
+        $order = Order::findOrFail($orderId);
+        $payment = new Payment([
+            'status' => PaymentStatus::SUCCESS,
+            'session_id' => $request->session_id,
+            'order_id' => $order->id,
+        ]);
+        $payment->save();
+        Session::put('cart', new Cart());
+        return view('orders.success');
+    }
+    public function cancel(Request $request)
+    {
+        $orderId = Session::get('order_id');
+        $order = Order::findOrFail($orderId);
+        $payment = new Payment([
+            'status' => PaymentStatus::FAIL,
+            'error_code' => $request->error_code,
+            'error_description' => $request->error_description,
+            'session_id' => $request->session_id,
+            'order_id' => $order->id,
+        ]);
+        $payment->save();
+        Session::put('cart', new Cart());
+        return view('orders.cancel');
     }
 }

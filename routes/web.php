@@ -1,12 +1,10 @@
 <?php
 
 use App\Http\Controllers\CartController;
-use App\Http\Controllers\HelloWorldController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\StripeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Auth;
@@ -42,14 +40,8 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 });
 
+Route::get('/success', [OrderController::class, 'success']) ->name('success');
+Route::get('/cancel', [OrderController::class, 'cancel'])->name('cancel');
 Route::post('/payment/status', [PaymentController::class, 'status']);
-//Route::get('/hello', [HelloWorldController::class, 'show']);
-
-Route::get('/success', [StripeController::class, 'success']) ->name('success');
-Route::get('/cancel', [StripeController::class, 'cancel'])->name('cancel');
-//Route::post('/stripe/update-status', [StripeController::class, 'updatePaymentStatus'])->name('stripe.update-status');
-
-//Route::get('success', [OrderController::class, 'success']);
-//Route::get('error', [OrderController::class, 'error']);
 
 Auth::routes(['verify' => true]);
