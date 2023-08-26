@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+    php:
+        container_name: cont-shop
+        build:
+            context: .
+        ports:
+            - 8000:8000
+        volumes:
+            - ./:/var/lib/www
+        networks:
+            - shop-network
+
+    database:
+        container_name: shop-db
+        image: mariadb:10.4.31
+        ports:
+            - ${DB_PORT}:3306
+        environment:
+            - MYSQL_DATABASE=${DB_DATABASE}
+            - MYSQL_USER=${DB_USERNAME}
+            - MYSQL_PASSWORD=${DB_PASSWORD}
+            - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+        volumes:
+            - shop-volume:/var/lib/mysql
+        networks:
+            - shop-network
+
+volumes:
+    shop-volume:
+
+networks:
+    shop-network:
+        driver: bridge

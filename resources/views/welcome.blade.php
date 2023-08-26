@@ -64,7 +64,7 @@
                                 <a class="dropdown-item" href="#">12</a>
                                 <a class="dropdown-item" href="#">18</a>
                             </div>
-                            <a href="#top" class="btn btn-light"> <i class="fas fa-arrow-up mr-2"></i> Powrót do góry</a>
+                            <a href="#top" class="btn btn-light"> <i class="fas fa-arrow-up mr-2"></i> Wróć do góry</a>
                             <div class="btn-group" style="float: right;">
                                 <button type="button" class="btn btn-lg btn-light"> <span class="fa fa-arrow-left"></span> </button>
                                 <button type="button" class="btn btn-lg btn-light"> <span class="fa fa-arrow-right"></span> </button>
